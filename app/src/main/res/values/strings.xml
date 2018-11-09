@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ft_hangouts</string>
+    <string name="action_settings">Settings</string>
+    <string name="main_hint_press_to_create_contact">Press + to create contact</string>
+    <string name="add_contact_save">Save</string>
+    <string name="add_contact_first_name">First Name</string>
+    <string name="add_contact_last_name">Last Name</string>
+    <string name="add_contact_phone_number">Phone Number</string>
+    <string name="add_contact_email">Email</string>
+    <string name="add_contact_title">Add contact</string>
+    <string name="add_contact_no_number_alert">Enter phone number</string>
+</resources>
