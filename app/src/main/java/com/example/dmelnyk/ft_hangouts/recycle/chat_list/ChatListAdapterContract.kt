@@ -1,10 +1,12 @@
-package com.example.dmelnyk.ft_hangouts
+package com.example.dmelnyk.ft_hangouts.recycle.chat_list
 
-interface MessageListAdapterContract {
+import com.example.dmelnyk.ft_hangouts.recycle.ChatListItemViewHolder
+
+interface ChatListAdapterContract {
 
     interface AdapterPresenter {
         fun getItemsCount(): Int
-        fun onBindMessageItemView(viewHolder: MessageListItemViewHolder, position: Int)
+        fun onBindMessageItemView(viewHolder: ChatListItemViewHolder, position: Int)
     }
 
     interface MessageItemPresenter {
@@ -15,6 +17,7 @@ interface MessageListAdapterContract {
         fun setName(name: String)
         fun setMessage(message: String)
         fun setTime(time: String)
+        fun onClick(position: Int)
     }
 
 }

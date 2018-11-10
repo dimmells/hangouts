@@ -1,4 +1,4 @@
-package com.example.dmelnyk.ft_hangouts
+package com.example.dmelnyk.ft_hangouts.data
 
 import android.content.ContentValues
 import android.content.Context
@@ -62,7 +62,7 @@ class DBHandler(private var context: Context) : SQLiteOpenHelper(context, DATABA
 
         if (result.moveToFirst()) {
             do {
-                var contact = Contact(
+                val contact = Contact(
                         result.getInt(result.getColumnIndex(COL_ID)),
                         result.getString(result.getColumnIndex(COL_FIRST_NAME)),
                         result.getString(result.getColumnIndex(COL_LAST_NAME)),
@@ -77,6 +77,27 @@ class DBHandler(private var context: Context) : SQLiteOpenHelper(context, DATABA
         db.close()
 
         return list
+    }
+
+    fun getContactById(contactId: Int): Contact {
+        var contact = Contact()
+        val db = readableDatabase
+        val query = "SELECT * FROM $TABLE_NAME WHERE $COL_ID = \"$contactId\""
+        val cursor = db.rawQuery(query, null)
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst()
+            with(contact) {
+                id = cursor.getInt(cursor.getColumnIndex(COL_ID))
+                first_name = cursor.getString(cursor.getColumnIndex(COL_FIRST_NAME))
+                last_name = cursor.getString(cursor.getColumnIndex(COL_LAST_NAME))
+                phone_number = cursor.getString(cursor.getColumnIndex(COL_PHONE_NUMBER))
+                email = cursor.getString(cursor.getColumnIndex(COL_EMAIL))
+                photoSrc = cursor.getString(cursor.getColumnIndex(COL_PHOTO))
+            }
+        }
+
+        return contact
     }
 
     fun updateContact(contactToUpdate: Contact) {

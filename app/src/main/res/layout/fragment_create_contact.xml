@@ -7,7 +7,7 @@
     android:background="#ffffff">
 
     <include
-        android:id="@+id/layout_menu_header"
+        android:id="@+id/toolbar_create_contact"
         layout="@layout/fragment_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         android:background="@drawable/rounded_image_view"
         android:src="@android:drawable/ic_menu_camera"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_menu_header" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_create_contact" />
 
     <EditText
         android:id="@+id/text_view_add_contact_first_name"
@@ -37,9 +37,10 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:hint="@string/add_contact_first_name"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_view_add_contact_photo"
-        app:layout_constraintTop_toBottomOf="@+id/layout_menu_header" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_create_contact" />
 
     <EditText
         android:id="@+id/text_view_add_contact_last_name"
@@ -49,6 +50,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:hint="@string/add_contact_last_name"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_view_add_contact_photo"
         app:layout_constraintTop_toBottomOf="@+id/text_view_add_contact_first_name" />
@@ -61,6 +63,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:hint="@string/add_contact_phone_number"
+        android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_view_add_contact_last_name" />
@@ -73,6 +76,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:hint="@string/add_contact_email"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_view_add_contact_number" />
@@ -90,6 +94,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_view_add_contact_email"
         android:background="@color/colorPrimaryDark"/>
-
 
 </android.support.constraint.ConstraintLayout>

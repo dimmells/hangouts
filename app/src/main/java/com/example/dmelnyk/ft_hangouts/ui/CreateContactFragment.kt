@@ -1,33 +1,30 @@
-package com.example.dmelnyk.ft_hangouts
+package com.example.dmelnyk.ft_hangouts.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.dmelnyk.ft_hangouts.R
+import com.example.dmelnyk.ft_hangouts.data.Contact
+import com.example.dmelnyk.ft_hangouts.data.DBHandler
 import kotlinx.android.synthetic.main.fragment_create_contact.*
 import kotlinx.android.synthetic.main.fragment_toolbar.*
 
-class AddContactFragment: Fragment() {
+class CreateContactFragment: Fragment() {
 
     companion object {
-        const val KEY_DB = "db"
 
-        fun newInstance(dbHandler: DBHandler): AddContactFragment {
-            val fragment = AddContactFragment()
-            val args = Bundle()
-            args.putSerializable(KEY_DB, dbHandler)
-            fragment.arguments = args
-            return fragment
-        }
+        fun newInstance(): CreateContactFragment = CreateContactFragment()
     }
 
-    private lateinit var dbHandler: DBHandler
+    private var dbHandler: DBHandler? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dbHandler = arguments?.getSerializable(KEY_DB) as DBHandler
+        dbHandler = this.context?.let { DBHandler(it) }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -53,9 +50,13 @@ class AddContactFragment: Fragment() {
             if (contact.first_name.isEmpty() && contact.last_name.isEmpty()) {
                 contact.first_name = contact.phone_number
             }
-            dbHandler.addContactToDb(contact)
+            val isSave = dbHandler?.addContactToDb(contact)
+            if (isSave != null && isSave) {
+                fragmentManager?.popBackStack()
+            }
         } else {
             Toast.makeText(context, getString(R.string.add_contact_no_number_alert), Toast.LENGTH_SHORT).show()
         }
     }
+
 }

@@ -9,4 +9,6 @@
     <string name="add_contact_email">Email</string>
     <string name="add_contact_title">Add contact</string>
     <string name="add_contact_no_number_alert">Enter phone number</string>
+    <string name="chat_hint_message">Message...</string>
+    <string name="chat_unexpected_error">Unexpected Error</string>
 </resources>
