@@ -11,5 +11,6 @@ class ChatItemSentViewHolder(itemView: View, private val presenter: ChatAdapterC
     }
 
     override fun setTimeSent(time: String) {
+        itemView.text_view_chat_time_sent.text = time
     }
 }

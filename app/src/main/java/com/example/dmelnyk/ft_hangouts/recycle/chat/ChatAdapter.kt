@@ -21,6 +21,8 @@ class ChatAdapter(private val adapterPresenter: ChatAdapterContract.AdapterPrese
         }
     }
 
+    override fun getItemViewType(position: Int): Int = adapterPresenter.getSmsType(position)
+
     override fun getItemCount(): Int = adapterPresenter.getItemsCount()
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

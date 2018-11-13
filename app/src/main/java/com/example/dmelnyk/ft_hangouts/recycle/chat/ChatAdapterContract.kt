@@ -7,6 +7,7 @@ interface ChatAdapterContract {
         fun getItemsCount(): Int
         fun onBindMessageItemReceivedView(receivedViewHolder: ChatItemReceivedViewHolder, position: Int)
         fun onBindMessageItemSentView(receivedViewHolder: ChatItemSentViewHolder, position: Int)
+        fun getSmsType(position: Int): Int
     }
 
     interface MessageItemPresenter {
