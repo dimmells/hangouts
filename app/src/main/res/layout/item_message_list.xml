@@ -12,6 +12,7 @@
         android:layout_height="42dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/rounded_image_view"
+        android:scaleType="center"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

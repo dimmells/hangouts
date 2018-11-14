@@ -88,13 +88,14 @@ class ChatFragment: Fragment(), ChatAdapterContract.AdapterPresenter, ChatAdapte
         val title = "${contact.first_name} ${contact.last_name}"
         toolbar_chat.text_view_toolbar_title.text = title
         toolbar_chat.button_toolbar_back.setOnClickListener{ fragmentManager?.popBackStack() }
+        toolbar_chat.image_view_toolbar_info.setOnClickListener { setFragment(ContactInfoFragment.newInstance(contact.id)) }
+        toolbar_chat.image_view_toolbar_info.visibility = View.VISIBLE
         recycle_view_chat_message_list.layoutManager = LinearLayoutManager(context)
         recycle_view_chat_message_list.scrollToPosition(smsList.lastIndex)
         image_button_chat_send.setOnClickListener { onSendButtonClick() }
         edit_text_chat_message.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
         recycle_view_chat_message_list.adapter = smsAdapter
         recycle_view_chat_message_list.scrollToPosition(smsList.lastIndex)
-        image_view_chat_info.setOnClickListener { setFragment(ContactInfoFragment.newInstance(contact.id)) }
     }
 
     override fun getItemsCount(): Int = smsList.size

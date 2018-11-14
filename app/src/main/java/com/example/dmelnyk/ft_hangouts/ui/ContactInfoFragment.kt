@@ -46,7 +46,8 @@ class ContactInfoFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(contact) {
-            toolbar_view_contact.text_view_toolbar_title.text = "$first_name $last_name"
+            val title = "$first_name $last_name"
+            toolbar_view_contact.text_view_toolbar_title.text = title
             text_view_view_contact_first_name.text = first_name
             text_view_view_contact_last_name.text = last_name
             text_view_view_contact_number.text = phone_number
