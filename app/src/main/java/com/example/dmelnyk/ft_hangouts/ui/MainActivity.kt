@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import com.example.dmelnyk.ft_hangouts.R
+import com.example.dmelnyk.ft_hangouts.utils.Utils
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,8 +22,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Utils.onActivityCreateSetTheme(this)
         setContentView(R.layout.activity_main)
-
         for (i in permissions) {
             if (ContextCompat.checkSelfPermission(this,
                             i) != PackageManager.PERMISSION_GRANTED) {

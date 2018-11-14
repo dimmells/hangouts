@@ -12,4 +12,8 @@
     <string name="chat_hint_message">Message...</string>
     <string name="chat_unexpected_error">Unexpected Error</string>
     <string name="chat_list_item_no_message">No messages yet</string>
+    <string name="contact_info_alert_dialog_message">Do you really want to delete this contact</string>
+    <string name="contact_info_alert_yeah">Yeah</string>
+    <string name="contact_info_alert_dialog_no">No, please</string>
+    <string name="db_error">Error</string>
 </resources>

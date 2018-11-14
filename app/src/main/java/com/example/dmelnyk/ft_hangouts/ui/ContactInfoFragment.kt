@@ -1,7 +1,9 @@
 package com.example.dmelnyk.ft_hangouts.ui
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentTransaction
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,6 +47,19 @@ class ContactInfoFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        refreshData()
+        button_view_contact_edit.setOnClickListener { setFragment(EditContactFragment.newInstance(contact.id)) }
+        button_view_contact_delete.setOnClickListener{ showDialogOnDelete() }
+        toolbar_view_contact.button_toolbar_back.setOnClickListener { fragmentManager?.popBackStack() }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refreshData()
+    }
+
+    private fun refreshData() {
+        contact = dbHandler?.getContactById(contact.id) ?: contact
         with(contact) {
             val title = "$first_name $last_name"
             toolbar_view_contact.text_view_toolbar_title.text = title
@@ -52,9 +67,29 @@ class ContactInfoFragment: Fragment() {
             text_view_view_contact_last_name.text = last_name
             text_view_view_contact_number.text = phone_number
             text_view_view_contact_email.text = email
-            button_view_contact_delete.setOnClickListener{ dbHandler?.deleteContact(id) }
         }
-        toolbar_view_contact.button_toolbar_back.setOnClickListener { fragmentManager?.popBackStack() }
-        button_view_contact_edit.setOnClickListener {  }
+    }
+
+    private fun showDialogOnDelete() {
+        val alertDialogBuilder = AlertDialog.Builder(activity)
+        alertDialogBuilder
+                .setMessage(getString(R.string.contact_info_alert_dialog_message))
+                .setPositiveButton(getString(R.string.contact_info_alert_yeah), { _, _ ->
+                    dbHandler?.deleteContact(contact.id)
+                    fragmentManager?.popBackStack()
+                    fragmentManager?.popBackStack()
+                })
+                .setNegativeButton(getString(R.string.contact_info_alert_dialog_no), {_, _ -> })
+        alertDialogBuilder.create().show()
+    }
+
+    private fun setFragment(fragment: Fragment) {
+        activity?.supportFragmentManager?.beginTransaction()
+                ?.apply {
+                    replace(R.id.coordinator_main, fragment)
+                    setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    addToBackStack(null)
+                    commit()
+                }
     }
 }

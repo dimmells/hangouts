@@ -98,6 +98,13 @@ class ChatFragment: Fragment(), ChatAdapterContract.AdapterPresenter, ChatAdapte
         recycle_view_chat_message_list.scrollToPosition(smsList.lastIndex)
     }
 
+    override fun onResume() {
+        super.onResume()
+        contact = dbHandler?.getContactById(contact.id) ?: contact
+        val title = "${contact.first_name} ${contact.last_name}"
+        toolbar_chat.text_view_toolbar_title.text = title
+    }
+
     override fun getItemsCount(): Int = smsList.size
 
     override fun getSmsType(position: Int): Int = smsList[position].key

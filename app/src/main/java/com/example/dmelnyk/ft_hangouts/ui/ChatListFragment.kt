@@ -16,6 +16,11 @@ import com.example.dmelnyk.ft_hangouts.data.DBHandler
 import com.example.dmelnyk.ft_hangouts.data.SmsLoader
 import kotlinx.android.synthetic.main.fragment_message_list.*
 import kotlinx.android.synthetic.main.fragment_toolbar.view.*
+import android.content.Intent
+import android.support.v4.content.ContextCompat.startActivity
+import android.app.Activity
+import com.example.dmelnyk.ft_hangouts.utils.Utils
+
 
 class ChatListFragment: Fragment(), ChatListAdapterContract.AdapterPresenter, ChatListAdapterContract.MessageItemPresenter {
 
@@ -54,6 +59,12 @@ class ChatListFragment: Fragment(), ChatListAdapterContract.AdapterPresenter, Ch
         toolbar_chat.text_view_toolbar_title.text = getString(R.string.app_name)
         toolbar_chat.button_toolbar_back.visibility = View.GONE
         fab.setOnClickListener { setFragment(CreateContactFragment.newInstance()) }
+        button_app.setOnClickListener {
+            activity?.let { it1 -> Utils.changeToTheme(it1, Utils.THEME_MATERIAL_LIGHT) }
+        }
+        button_red.setOnClickListener {
+            activity?.let { it1 -> Utils.changeToTheme(it1, Utils.THEME_YOUR_CUSTOM_THEME) }
+        }
     }
 
     override fun getItemsCount(): Int = chatList.size
@@ -88,4 +99,13 @@ class ChatListFragment: Fragment(), ChatListAdapterContract.AdapterPresenter, Ch
     }
 
     private fun loadLastMessage() = chatList.forEach { it.lastMessage = smsLoader?.getContactLastMessage(it) }
+
+    fun changeToTheme(activity: Activity, theme: Int) {
+		val sTheme = theme
+		activity.finish()
+		activity.startActivity(Intent(activity, activity::class.java))
+		activity.overridePendingTransition(android.R.anim.fade_in,
+				android.R.anim.fade_out)
+	}
+
 }

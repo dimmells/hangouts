@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
+import com.example.dmelnyk.ft_hangouts.R
 import java.io.Serializable
 
 class DBHandler(private var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1), Serializable {
@@ -101,7 +102,7 @@ class DBHandler(private var context: Context) : SQLiteOpenHelper(context, DATABA
         return contact
     }
 
-    fun updateContact(contactToUpdate: Contact) {
+    fun updateContact(contactToUpdate: Contact): Boolean {
         val db = writableDatabase
         val query = "SELECT * FROM $TABLE_NAME"
         val result = db.rawQuery(query, null)
@@ -114,10 +115,14 @@ class DBHandler(private var context: Context) : SQLiteOpenHelper(context, DATABA
             put(COL_EMAIL, contactToUpdate.email)
 //        put(COL_PHOTO, contactToUpdate.photo)
         }
-        db.update(TABLE_NAME, cv, "$COL_ID=?", arrayOf(contactToUpdate.id.toString()))
-
-        result.close()
-        db.close()
+        return try {
+            db.update(TABLE_NAME, cv, "$COL_ID=?", arrayOf(contactToUpdate.id.toString()))
+            result.close()
+            db.close()
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 
     fun deleteContact(id: Int) {
