@@ -11,4 +11,5 @@
     <string name="add_contact_no_number_alert">Enter phone number</string>
     <string name="chat_hint_message">Message...</string>
     <string name="chat_unexpected_error">Unexpected Error</string>
+    <string name="chat_list_item_no_message">No messages yet</string>
 </resources>

@@ -2,8 +2,6 @@ package com.example.dmelnyk.ft_hangouts.ui
 
 import android.content.BroadcastReceiver
 import android.content.Context
-import android.database.Cursor
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
@@ -25,9 +23,10 @@ import kotlinx.android.synthetic.main.fragment_chat.*
 import kotlinx.android.synthetic.main.fragment_toolbar.view.*
 import java.util.*
 import android.text.InputType
-import com.example.dmelnyk.ft_hangouts.SmsReceiver
 import android.content.Intent
 import android.content.IntentFilter
+import android.support.v4.app.FragmentTransaction
+import com.example.dmelnyk.ft_hangouts.data.SmsLoader
 import java.text.SimpleDateFormat
 
 class ChatFragment: Fragment(), ChatAdapterContract.AdapterPresenter, ChatAdapterContract.MessageItemPresenter {
@@ -48,12 +47,14 @@ class ChatFragment: Fragment(), ChatAdapterContract.AdapterPresenter, ChatAdapte
 
     private lateinit var contact: Contact
     private var dbHandler: DBHandler? = null
+    private var smsLoader: SmsLoader? = null
     private val smsList = ArrayList<SmsEntity>()
     private val smsAdapter = ChatAdapter(this, this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dbHandler = this.context?.let { DBHandler(it) }
+        smsLoader = activity?.let { SmsLoader(it) }
         val contactId = arguments?.getInt(KEY_CONTACT)
         if (contactId != null) {
             contact = dbHandler?.getContactById(contactId) ?: contact
@@ -61,14 +62,20 @@ class ChatFragment: Fragment(), ChatAdapterContract.AdapterPresenter, ChatAdapte
             Toast.makeText(context, getString(R.string.chat_unexpected_error), Toast.LENGTH_SHORT).show()
         }
 
-        val br = object : BroadcastReceiver() {
-            // действия при получении сообщений
-            override fun onReceive(context: Context, intent: Intent) {
-                loadSmsMessages()
+        try {
+            val broadcastReceiver = object : BroadcastReceiver() {
+                override fun onReceive(context: Context, intent: Intent) {
+                    smsList.clear()
+                    smsLoader?.getContactSmsList(contact)?.let { smsList.addAll(it) }
+                    recycle_view_chat_message_list.adapter = smsAdapter
+                    recycle_view_chat_message_list.scrollToPosition(smsList.lastIndex)
+                }
             }
+            val intentFilter = IntentFilter("android.provider.Telephony.SMS_RECEIVED")
+            activity?.registerReceiver(broadcastReceiver, intentFilter)
+        } catch (e: Exception) {
+            Toast.makeText(context, e.localizedMessage, Toast.LENGTH_LONG).show()
         }
-        val intFilt = IntentFilter("android.provider.Telephony.SMS_RECEIVED")
-        activity?.registerReceiver(br, intFilt)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -76,7 +83,8 @@ class ChatFragment: Fragment(), ChatAdapterContract.AdapterPresenter, ChatAdapte
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadSmsMessages()
+        smsList.clear()
+        smsLoader?.getContactSmsList(contact)?.let { smsList.addAll(it) }
         val title = "${contact.first_name} ${contact.last_name}"
         toolbar_chat.text_view_toolbar_title.text = title
         toolbar_chat.button_toolbar_back.setOnClickListener{ fragmentManager?.popBackStack() }
@@ -84,50 +92,9 @@ class ChatFragment: Fragment(), ChatAdapterContract.AdapterPresenter, ChatAdapte
         recycle_view_chat_message_list.scrollToPosition(smsList.lastIndex)
         image_button_chat_send.setOnClickListener { onSendButtonClick() }
         edit_text_chat_message.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
-    }
-
-    private fun selector(sms: SmsEntity): Date = sms.date
-
-    private fun loadSmsMessages() {
-        smsList.clear()
-        val cursor = activity?.contentResolver?.query(
-                Uri.parse("content://sms/inbox"),
-                null,
-                null,
-                null,
-                null
-        )
-        createList(cursor, smsList, KEY_RECEIVED)
-        val cursorSent = activity?.contentResolver?.query(
-                Uri.parse("content://sms/sent"),
-                null,
-                null,
-                null,
-                null
-        )
-        createList(cursorSent, smsList, KEY_SENT)
-
-        smsList.sortBy({selector(it)})
         recycle_view_chat_message_list.adapter = smsAdapter
         recycle_view_chat_message_list.scrollToPosition(smsList.lastIndex)
-    }
-
-    private fun createList(cursor: Cursor?, smsList: ArrayList<SmsEntity>, key: Int) {
-        if (cursor != null && cursor.moveToLast()) {
-            val nameID = cursor.getColumnIndex("address")
-            val messageId = cursor.getColumnIndex("body")
-            val dateID = cursor.getColumnIndex("date")
-
-            do {
-                if (cursor.getString(nameID) == contact.phone_number) {
-                    val dateString = cursor.getString(dateID)
-
-                    smsList.add(SmsEntity(cursor.getString(nameID), Date(dateString.toLong()), cursor.getString(messageId), key))
-                }
-            } while (cursor.moveToPrevious())
-        }
-
-        cursor?.close()
+        image_view_chat_info.setOnClickListener { setFragment(ContactInfoFragment.newInstance(contact.id)) }
     }
 
     override fun getItemsCount(): Int = smsList.size
@@ -163,11 +130,24 @@ class ChatFragment: Fragment(), ChatAdapterContract.AdapterPresenter, ChatAdapte
                 Handler().postDelayed(
                         {
                             Toast.makeText(context, "SMS sent", Toast.LENGTH_SHORT).show()
-                            loadSmsMessages()
+                            smsList.clear()
+                            smsLoader?.getContactSmsList(contact)?.let { smsList.addAll(it) }
+                            recycle_view_chat_message_list.adapter = smsAdapter
+                            recycle_view_chat_message_list.scrollToPosition(smsList.lastIndex)
                         }, 1000)
             } catch (e: Exception) {
                 Toast.makeText(context, e.message.toString(), Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun setFragment(fragment: Fragment) {
+        activity?.supportFragmentManager?.beginTransaction()
+                ?.apply {
+                    replace(R.id.coordinator_main, fragment)
+                    setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    addToBackStack(null)
+                    commit()
+                }
     }
 }

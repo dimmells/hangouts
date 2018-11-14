@@ -1,6 +1,5 @@
 package com.example.dmelnyk.ft_hangouts.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -45,7 +44,8 @@ class CreateContactFragment: Fragment() {
                     text_view_add_contact_last_name.text.toString(),
                     text_view_add_contact_number.text.toString(),
                     text_view_add_contact_email.text.toString(),
-                    "default"
+                    "default",
+                    null
             )
             if (contact.first_name.isEmpty() && contact.last_name.isEmpty()) {
                 contact.first_name = contact.phone_number

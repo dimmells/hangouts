@@ -22,10 +22,11 @@
         android:layout_height="96dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:elevation="10dp"
-        android:translationY="-2dp"
         android:background="@drawable/rounded_image_view"
+        android:elevation="10dp"
+        android:scaleType="center"
         android:src="@android:drawable/ic_menu_camera"
+        android:translationY="-2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_create_contact" />
 
@@ -93,6 +94,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_view_add_contact_email"
-        android:background="@color/colorPrimaryDark"/>
+        android:background="@drawable/rect_gradient_background"/>
 
 </android.support.constraint.ConstraintLayout>

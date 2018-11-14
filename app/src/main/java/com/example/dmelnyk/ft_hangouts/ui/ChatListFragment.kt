@@ -13,6 +13,7 @@ import com.example.dmelnyk.ft_hangouts.recycle.ChatListItemViewHolder
 import com.example.dmelnyk.ft_hangouts.R
 import com.example.dmelnyk.ft_hangouts.data.Contact
 import com.example.dmelnyk.ft_hangouts.data.DBHandler
+import com.example.dmelnyk.ft_hangouts.data.SmsLoader
 import kotlinx.android.synthetic.main.fragment_message_list.*
 import kotlinx.android.synthetic.main.fragment_toolbar.view.*
 
@@ -25,17 +26,22 @@ class ChatListFragment: Fragment(), ChatListAdapterContract.AdapterPresenter, Ch
 
     private val chatList: MutableList<Contact> = ArrayList()
     private var dbHandler: DBHandler? = null
+    private var smsLoader: SmsLoader? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        smsLoader = activity?.let { SmsLoader(it) }
         dbHandler = this.context?.let { DBHandler(it) }
         dbHandler?.getAllContact()?.let { chatList.addAll(it) }
+        loadLastMessage()
     }
 
     override fun onResume() {
         super.onResume()
         chatList.removeAll(chatList)
         dbHandler?.getAllContact()?.let { chatList.addAll(it) }
+        loadLastMessage()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -57,8 +63,15 @@ class ChatListFragment: Fragment(), ChatListAdapterContract.AdapterPresenter, Ch
 
         viewHolder.onClick(position)
         viewHolder.setName("${contact.first_name} ${contact.last_name}")
-//        viewHolder.setMessage()
-//        viewHolder.setTime()
+        val lastMessage = contact.lastMessage
+        if (lastMessage != null) {
+            viewHolder.setMessage(lastMessage.message, resources.getColor(R.color.colorMessageText))
+            viewHolder.setTime(lastMessage.date)
+        } else {
+            viewHolder.setMessage(getString(R.string.chat_list_item_no_message), resources.getColor(R.color.colorPrimary))
+            viewHolder.setTime(null)
+        }
+        viewHolder.hideBottomLine(position == chatList.size - 1)
     }
 
     override fun onMessageItemClicked(position: Int) { setFragment(ChatFragment.newInstance(chatList[position].id))}
@@ -73,4 +86,6 @@ class ChatListFragment: Fragment(), ChatListAdapterContract.AdapterPresenter, Ch
                     commit()
                 }
     }
+
+    private fun loadLastMessage() = chatList.forEach { it.lastMessage = smsLoader?.getContactLastMessage(it) }
 }

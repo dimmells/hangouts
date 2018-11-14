@@ -68,7 +68,8 @@ class DBHandler(private var context: Context) : SQLiteOpenHelper(context, DATABA
                         result.getString(result.getColumnIndex(COL_LAST_NAME)),
                         result.getString(result.getColumnIndex(COL_PHONE_NUMBER)),
                         result.getString(result.getColumnIndex(COL_EMAIL)),
-                        result.getString(result.getColumnIndex(COL_PHOTO)))
+                        result.getString(result.getColumnIndex(COL_PHOTO)),
+                        null)
                 list.add(contact)
             } while (result.moveToNext())
         }
