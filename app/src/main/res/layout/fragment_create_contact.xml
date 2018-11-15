@@ -93,6 +93,7 @@
         android:text="@string/add_contact_save"
         android:textColor="#ffffff"
         android:elevation="8dp"
+        android:padding="8dp"
         android:translationY="-2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,6 +1,7 @@
 package com.example.dmelnyk.ft_hangouts.ui
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -35,7 +36,6 @@ class MainActivity : AppCompatActivity() {
 
         setFragment(ChatListFragment.newInstance(), false)
     }
-
 
     private fun setFragment(fragment: Fragment, isAddtoBackStack: Boolean) {
         supportFragmentManager.beginTransaction()

@@ -2,7 +2,19 @@
 <resources>
     <color name="colorPrimary">#2ad0d6</color>
     <color name="colorPrimaryDark">#0083b7</color>
-    <color name="colorAccent">#d68b21</color>
+    <color name="colorAccent">#4daf50</color>
     <color name="colorMessageText">#565555</color>
     <color name="colorGradient">#870205</color>
+
+    <color name="colorEmpirePrimary">#f44336</color>
+    <color name="colorEmpirePrimaryDark">#560201</color>
+    <color name="colorEmpireAccent">#0083b7</color>
+
+    <color name="colorUnionPrimary">#673ab6</color>
+    <color name="colorUnionPrimaryDark">#401d83</color>
+    <color name="colorUnionAccent">#f44336</color>
+
+    <color name="colorAlliancePrimary">#4daf50</color>
+    <color name="colorAlliancePrimaryDark">#115916</color>
+    <color name="colorAllianceAccent">#673ab6</color>
 </resources>

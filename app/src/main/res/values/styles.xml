@@ -10,13 +10,31 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="RedTheme" parent="Theme.AppCompat.Light">
+    <style name="EmpireTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorPrimary">@color/colorGradient</item>
-        <item name="colorPrimaryDark">@color/colorMessageText</item>
-        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorEmpirePrimary</item>
+        <item name="colorPrimaryDark">@color/colorEmpirePrimaryDark</item>
+        <item name="colorAccent">@color/colorEmpireAccent</item>
+    </style>
+
+    <style name="UnionTheme" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorUnionPrimary</item>
+        <item name="colorPrimaryDark">@color/colorUnionPrimaryDark</item>
+        <item name="colorAccent">@color/colorUnionAccent</item>
+    </style>
+
+    <style name="AllianceTheme" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorAlliancePrimary</item>
+        <item name="colorPrimaryDark">@color/colorAlliancePrimaryDark</item>
+        <item name="colorAccent">@color/colorAllianceAccent</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

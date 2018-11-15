@@ -47,7 +47,7 @@ class EditContactFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        text_view_toolbar_title.text = getString(R.string.add_contact_title)
+        text_view_toolbar_title.text = getString(R.string.edit_contact_toolbar_title)
         button_toolbar_back.setOnClickListener { fragmentManager?.popBackStack() }
         button_add_contact_save.setOnClickListener { edit() }
         with (contact) {
@@ -58,6 +58,7 @@ class EditContactFragment: Fragment() {
             text_view_add_contact_number.setText(phone_number, TextView.BufferType.EDITABLE)
             text_view_add_contact_email.setText(email, TextView.BufferType.EDITABLE)
         }
+        button_add_contact_save.text = getString(R.string.edit_contact_button_edit)
     }
 
     private fun edit() {

@@ -36,7 +36,7 @@
 
         <ImageView
             android:id="@+id/image_view_toolbar_info"
-            android:layout_width="16dp"
+            android:layout_width="24dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:visibility="gone"
