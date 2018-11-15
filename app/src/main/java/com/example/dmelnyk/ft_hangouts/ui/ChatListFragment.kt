@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +14,12 @@ import com.example.dmelnyk.ft_hangouts.recycle.ChatListItemViewHolder
 import com.example.dmelnyk.ft_hangouts.R
 import com.example.dmelnyk.ft_hangouts.data.Contact
 import com.example.dmelnyk.ft_hangouts.data.DBHandler
+import com.example.dmelnyk.ft_hangouts.data.SettingManager
 import com.example.dmelnyk.ft_hangouts.data.SmsLoader
+import com.example.dmelnyk.ft_hangouts.utils.Utils
 import kotlinx.android.synthetic.main.fragment_message_list.*
 import kotlinx.android.synthetic.main.fragment_toolbar.view.*
+import java.util.*
 
 class ChatListFragment: Fragment(), ChatListAdapterContract.AdapterPresenter, ChatListAdapterContract.MessageItemPresenter {
 
@@ -27,6 +31,7 @@ class ChatListFragment: Fragment(), ChatListAdapterContract.AdapterPresenter, Ch
     private val chatList: MutableList<Contact> = ArrayList()
     private var dbHandler: DBHandler? = null
     private var smsLoader: SmsLoader? = null
+    private var settingManager: SettingManager? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +76,7 @@ class ChatListFragment: Fragment(), ChatListAdapterContract.AdapterPresenter, Ch
             viewHolder.setMessage(lastMessage.message, resources.getColor(R.color.colorMessageText))
             viewHolder.setTime(lastMessage.date)
         } else {
-            viewHolder.setMessage(getString(R.string.chat_list_item_no_message), resources.getColor(R.color.colorPrimary))
+            viewHolder.setMessage(getString(R.string.chat_list_item_no_message), null)
             viewHolder.setTime(null)
         }
         viewHolder.hideBottomLine(position == chatList.size - 1)

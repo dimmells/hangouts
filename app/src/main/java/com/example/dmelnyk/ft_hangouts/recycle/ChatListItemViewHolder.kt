@@ -11,9 +11,11 @@ class ChatListItemViewHolder(itemView: View, private val presenter: ChatListAdap
 
     override fun setName(name: String) { itemView.text_view_message_list_name.text = name }
 
-    override fun setMessage(message: String, textColor: Int) {
+    override fun setMessage(message: String, textColor: Int?) {
         itemView.text_view_message_list_message.text = message
-        itemView.text_view_message_list_message.setTextColor(textColor)
+        if (textColor != null) {
+            itemView.text_view_message_list_message.setTextColor(textColor)
+        }
     }
 
     override fun setTime(time: Date?) {

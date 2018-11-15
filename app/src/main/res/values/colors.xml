@@ -4,7 +4,9 @@
     <color name="colorPrimaryDark">#0083b7</color>
     <color name="colorAccent">#4daf50</color>
     <color name="colorMessageText">#565555</color>
-    <color name="colorGradient">#870205</color>
+    <color name="colorGradientOne">#870205</color>
+    <color name="colorGradientTwo">#873c02</color>
+
 
     <color name="colorEmpirePrimary">#f44336</color>
     <color name="colorEmpirePrimaryDark">#560201</color>

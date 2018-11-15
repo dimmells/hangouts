@@ -12,9 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.dmelnyk.ft_hangouts.R
-import com.example.dmelnyk.ft_hangouts.data.Contact
-import com.example.dmelnyk.ft_hangouts.data.DBHandler
-import com.example.dmelnyk.ft_hangouts.data.SmsEntity
 import com.example.dmelnyk.ft_hangouts.recycle.chat.ChatAdapter
 import com.example.dmelnyk.ft_hangouts.recycle.chat.ChatAdapterContract
 import com.example.dmelnyk.ft_hangouts.recycle.chat.ChatItemReceivedViewHolder
@@ -26,7 +23,7 @@ import android.text.InputType
 import android.content.Intent
 import android.content.IntentFilter
 import android.support.v4.app.FragmentTransaction
-import com.example.dmelnyk.ft_hangouts.data.SmsLoader
+import com.example.dmelnyk.ft_hangouts.data.*
 import java.text.SimpleDateFormat
 
 class ChatFragment: Fragment(), ChatAdapterContract.AdapterPresenter, ChatAdapterContract.MessageItemPresenter {
@@ -50,9 +47,12 @@ class ChatFragment: Fragment(), ChatAdapterContract.AdapterPresenter, ChatAdapte
     private var smsLoader: SmsLoader? = null
     private val smsList = ArrayList<SmsEntity>()
     private val smsAdapter = ChatAdapter(this, this)
+    private lateinit var settingManager: SettingManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val cntx = context
+        if (cntx != null) { settingManager = SettingManager(cntx) }
         dbHandler = this.context?.let { DBHandler(it) }
         smsLoader = activity?.let { SmsLoader(it) }
         val contactId = arguments?.getInt(KEY_CONTACT)
@@ -86,16 +86,22 @@ class ChatFragment: Fragment(), ChatAdapterContract.AdapterPresenter, ChatAdapte
         smsList.clear()
         smsLoader?.getContactSmsList(contact)?.let { smsList.addAll(it) }
         val title = "${contact.first_name} ${contact.last_name}"
-        toolbar_chat.text_view_toolbar_title.text = title
-        toolbar_chat.button_toolbar_back.setOnClickListener{ fragmentManager?.popBackStack() }
-        toolbar_chat.image_view_toolbar_info.setOnClickListener { setFragment(ContactInfoFragment.newInstance(contact.id)) }
-        toolbar_chat.image_view_toolbar_info.visibility = View.VISIBLE
-        recycle_view_chat_message_list.layoutManager = LinearLayoutManager(context)
-        recycle_view_chat_message_list.scrollToPosition(smsList.lastIndex)
+        with (toolbar_chat) {
+            text_view_toolbar_title.text = title
+            button_toolbar_back.setOnClickListener { fragmentManager?.popBackStack() }
+            image_view_toolbar_info.setOnClickListener { setFragment(ContactInfoFragment.newInstance(contact.id)) }
+            image_view_toolbar_info.visibility = View.VISIBLE
+        }
+        with (recycle_view_chat_message_list) {
+            layoutManager = LinearLayoutManager(context)
+            scrollToPosition(smsList.lastIndex)
+            adapter = smsAdapter
+            scrollToPosition(smsList.lastIndex)
+            background = resources.getDrawable(R.drawable.chat_background, activity?.theme)
+        }
         image_button_chat_send.setOnClickListener { onSendButtonClick() }
         edit_text_chat_message.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
-        recycle_view_chat_message_list.adapter = smsAdapter
-        recycle_view_chat_message_list.scrollToPosition(smsList.lastIndex)
+
     }
 
     override fun onResume() {

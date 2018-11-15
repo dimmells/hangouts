@@ -1,7 +1,6 @@
 package com.example.dmelnyk.ft_hangouts.ui
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -10,6 +9,7 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import com.example.dmelnyk.ft_hangouts.R
+import com.example.dmelnyk.ft_hangouts.data.SettingManager
 import com.example.dmelnyk.ft_hangouts.utils.Utils
 
 class MainActivity : AppCompatActivity() {
@@ -21,8 +21,12 @@ class MainActivity : AppCompatActivity() {
             Manifest.permission.READ_SMS,
             Manifest.permission.SEND_SMS)
 
+    private lateinit var settingManager: SettingManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        settingManager = SettingManager(this)
+        Utils.setTheme(settingManager.getTheme())
         Utils.onActivityCreateSetTheme(this)
         setContentView(R.layout.activity_main)
         for (i in permissions) {
@@ -33,7 +37,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
+        Utils.setLanguage(resources, settingManager.getLanguage())
         setFragment(ChatListFragment.newInstance(), false)
     }
 

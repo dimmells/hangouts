@@ -16,7 +16,7 @@ interface ChatListAdapterContract {
 
     interface MessageItemView {
         fun setName(name: String)
-        fun setMessage(message: String, textColor: Int)
+        fun setMessage(message: String, textColor: Int?)
         fun setTime(time: Date?)
         fun onClick(position: Int)
         fun hideBottomLine(hide: Boolean)
