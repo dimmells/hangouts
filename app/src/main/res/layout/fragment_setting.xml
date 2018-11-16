@@ -10,17 +10,27 @@
     android:layout_height="wrap_content"
     android:background="#d7d7d7">
 
+    <include
+        android:id="@+id/toolbar_setting"
+        layout="@layout/fragment_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <android.support.v7.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/toolbar_setting" >
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -31,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="Language"
+                android:text="@string/setting_language"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Default language"
+                android:text="@string/setting_default_language"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/setting_title_language" />
 
@@ -63,19 +73,19 @@
                     android:id="@+id/radio_button_setting_lang_en"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="English" />
+                    android:text="@string/setting_english" />
 
                 <RadioButton
                     android:id="@+id/radio_button_setting_lang_uk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Українська" />
+                    android:text="@string/setting_uk" />
 
                 <RadioButton
                     android:id="@+id/radio_button_setting_lang_fr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Francais" />
+                    android:text="@string/setting_francais" />
             </RadioGroup>
 
             <ImageView
@@ -113,7 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="Theme"
+                android:text="@string/setting_theme"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -136,25 +146,25 @@
                     android:id="@+id/radio_button_setting_theme_hive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hive" />
+                    android:text="@string/setting_hive" />
 
                 <RadioButton
                     android:id="@+id/radio_button_setting_theme_union"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Union" />
+                    android:text="@string/setting_union" />
 
                 <RadioButton
                     android:id="@+id/radio_button_setting_theme_alliance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Alliance" />
+                    android:text="@string/setting_alliance" />
 
                 <RadioButton
                     android:id="@+id/radio_button_setting_theme_empire"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Empire" />
+                    android:text="@string/setting_empire" />
             </RadioGroup>
 
             <ImageView
@@ -194,7 +204,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="Chat background"
+                android:text="@string/setting_chat_background"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -214,7 +224,7 @@
 
                 <RadioGroup
                     android:id="@+id/radio_group_setting_chat"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 

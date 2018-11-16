@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +15,7 @@ import com.example.dmelnyk.ft_hangouts.data.Contact
 import com.example.dmelnyk.ft_hangouts.data.DBHandler
 import com.example.dmelnyk.ft_hangouts.data.SettingManager
 import com.example.dmelnyk.ft_hangouts.data.SmsLoader
-import com.example.dmelnyk.ft_hangouts.utils.Utils
-import kotlinx.android.synthetic.main.fragment_message_list.*
+import kotlinx.android.synthetic.main.fragment_chat_list.*
 import kotlinx.android.synthetic.main.fragment_toolbar.view.*
 import java.util.*
 
@@ -50,7 +48,7 @@ class ChatListFragment: Fragment(), ChatListAdapterContract.AdapterPresenter, Ch
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_message_list, container, false)
+            inflater.inflate(R.layout.fragment_chat_list, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -71,6 +69,7 @@ class ChatListFragment: Fragment(), ChatListAdapterContract.AdapterPresenter, Ch
 
         viewHolder.onClick(position)
         viewHolder.setName("${contact.first_name} ${contact.last_name}")
+        activity?.let { viewHolder.setPhoto(contact.photoSrc, it) }
         val lastMessage = contact.lastMessage
         if (lastMessage != null) {
             viewHolder.setMessage(lastMessage.message, resources.getColor(R.color.colorMessageText))

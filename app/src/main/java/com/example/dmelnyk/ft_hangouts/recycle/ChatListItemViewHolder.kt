@@ -1,11 +1,13 @@
 package com.example.dmelnyk.ft_hangouts.recycle
 
+import android.app.Activity
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.example.dmelnyk.ft_hangouts.recycle.chat_list.ChatListAdapterContract
 import kotlinx.android.synthetic.main.item_message_list.view.*
 import java.text.SimpleDateFormat
 import java.util.*
+import com.example.dmelnyk.ft_hangouts.data.PhotoFormatter
 
 class ChatListItemViewHolder(itemView: View, private val presenter: ChatListAdapterContract.MessageItemPresenter): RecyclerView.ViewHolder(itemView), ChatListAdapterContract.MessageItemView {
 
@@ -29,4 +31,13 @@ class ChatListItemViewHolder(itemView: View, private val presenter: ChatListAdap
     override fun onClick(position: Int) { itemView.setOnClickListener { presenter.onMessageItemClicked(position) } }
 
     override fun hideBottomLine(hide: Boolean) { itemView.view_item_message_list_bottom_line.visibility = if (hide) View.INVISIBLE else View.VISIBLE }
+
+    override fun setPhoto(photoSrc: String, activity: Activity) {
+        if (photoSrc != "default") {
+            val bitmap = PhotoFormatter().getPhoto(photoSrc, activity)
+            if (bitmap != null) {
+                itemView.image_view_message_list_photo.setImageBitmap(bitmap)
+            }
+        }
+    }
 }

@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import android.widget.Toast
 import com.example.dmelnyk.ft_hangouts.R
 import java.io.Serializable
@@ -35,6 +36,9 @@ class DBHandler(private var context: Context) : SQLiteOpenHelper(context, DATABA
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {}
 
     fun addContactToDb(contact: Contact): Boolean {
+        if (!isUnique(contact.phone_number)) {
+            return false
+        }
         val cv = ContentValues()
         with(cv) {
             put(COL_FIRST_NAME, contact.first_name)
@@ -45,11 +49,11 @@ class DBHandler(private var context: Context) : SQLiteOpenHelper(context, DATABA
         }
         val result = writableDatabase.insert(TABLE_NAME, null, cv)
         return if (result == (-1).toLong()) {
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, context.getString(R.string.db_failed), Toast.LENGTH_SHORT).show()
             false
         }
         else {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, context.getString(R.string.db_success), Toast.LENGTH_SHORT).show()
             true
         }
     }
@@ -82,7 +86,7 @@ class DBHandler(private var context: Context) : SQLiteOpenHelper(context, DATABA
     }
 
     fun getContactById(contactId: Int): Contact {
-        var contact = Contact()
+        val contact = Contact()
         val db = readableDatabase
         val query = "SELECT * FROM $TABLE_NAME WHERE $COL_ID = \"$contactId\""
         val cursor = db.rawQuery(query, null)
@@ -102,6 +106,25 @@ class DBHandler(private var context: Context) : SQLiteOpenHelper(context, DATABA
         return contact
     }
 
+    private fun isUnique(phoneNumber: String): Boolean {
+        val db = this.readableDatabase
+        val query = "SELECT * FROM $TABLE_NAME"
+        val result = db.rawQuery(query, null)
+
+        if (result.moveToFirst()) {
+            do {
+                if (result.getString(result.getColumnIndex(COL_PHONE_NUMBER)) == phoneNumber) {
+                    return false
+                }
+            } while (result.moveToNext())
+        }
+
+        result.close()
+        db.close()
+
+        return true
+    }
+
     fun updateContact(contactToUpdate: Contact): Boolean {
         val db = writableDatabase
         val query = "SELECT * FROM $TABLE_NAME"
@@ -113,7 +136,7 @@ class DBHandler(private var context: Context) : SQLiteOpenHelper(context, DATABA
             put(COL_LAST_NAME, contactToUpdate.last_name)
             put(COL_PHONE_NUMBER, contactToUpdate.phone_number)
             put(COL_EMAIL, contactToUpdate.email)
-//        put(COL_PHOTO, contactToUpdate.photo)
+            put(COL_PHOTO, contactToUpdate.photoSrc)
         }
         return try {
             db.update(TABLE_NAME, cv, "$COL_ID=?", arrayOf(contactToUpdate.id.toString()))

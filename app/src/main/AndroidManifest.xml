@@ -30,7 +30,7 @@
         </activity>
 
         <receiver
-            android:name=".SmsReceiver"
+            android:name=".utils.SmsReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

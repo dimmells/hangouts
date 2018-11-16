@@ -97,7 +97,12 @@ class ChatFragment: Fragment(), ChatAdapterContract.AdapterPresenter, ChatAdapte
             scrollToPosition(smsList.lastIndex)
             adapter = smsAdapter
             scrollToPosition(smsList.lastIndex)
-            background = resources.getDrawable(R.drawable.chat_background, activity?.theme)
+            val chatBackground = settingManager.getChatBackground()
+            when (chatBackground) {
+                SettingManager.KEY_NONE -> setBackgroundResource(0)
+                SettingManager.KEY_WHATS_APP -> background = resources.getDrawable(R.drawable.chat_background, activity?.theme)
+                SettingManager.KEY_TELEGRAM -> background = resources.getDrawable(R.drawable.telegram_background, activity?.theme)
+            }
         }
         image_button_chat_send.setOnClickListener { onSendButtonClick() }
         edit_text_chat_message.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_SENTENCES

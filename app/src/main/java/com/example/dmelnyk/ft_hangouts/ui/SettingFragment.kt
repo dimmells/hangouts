@@ -2,17 +2,18 @@ package com.example.dmelnyk.ft_hangouts.ui
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import com.example.dmelnyk.ft_hangouts.R
 import com.example.dmelnyk.ft_hangouts.data.SettingManager
 import com.example.dmelnyk.ft_hangouts.utils.Utils
 import kotlinx.android.synthetic.main.fragment_setting.*
+import kotlinx.android.synthetic.main.fragment_toolbar.view.*
 import java.util.*
-import kotlin.collections.HashMap
+import kotlin.collections.ArrayList
 
 class SettingFragment: Fragment() {
 
@@ -23,8 +24,9 @@ class SettingFragment: Fragment() {
 
     private var language: String = SettingManager.KEY_DEFAULT
     private var theme: String = SettingManager.KEY_HIVE
+    private var chatBackground: String = SettingManager.KEY_WHATS_APP
     private lateinit var settingManager: SettingManager
-    private val chatBgMap: HashMap<Int, Boolean> = hashMapOf()
+    private val chatBgItem: ArrayList<ImageView> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,7 @@ class SettingFragment: Fragment() {
         if (cntx != null) { settingManager = SettingManager(cntx) }
         language = settingManager.getLanguage()
         theme = settingManager.getTheme()
+        chatBackground = settingManager.getChatBackground()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -39,6 +42,16 @@ class SettingFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        with (chatBgItem) {
+            add(image_chat_bg_none)
+            add(image_chat_bg_whats_app)
+            add(image_chat_bg_telegram)
+            true
+        }
+
+        toolbar_setting.text_view_toolbar_title.text = getString(R.string.setting_title)
+        toolbar_setting.button_toolbar_back.setOnClickListener { fragmentManager?.popBackStack() }
 
         check_box_setting_default_language.isChecked = language == SettingManager.KEY_DEFAULT
         check_box_setting_default_language.setOnCheckedChangeListener { _, isChecked ->
@@ -49,22 +62,48 @@ class SettingFragment: Fragment() {
         setThemeRadioGroupEnabled()
         image_view_setting_theme_save.setOnClickListener { onThemeSaveClick() }
 
-        chatBgMap[image_chat_bg_none.id] = false
-        chatBgMap[image_chat_bg_whats_app.id] = false
-        chatBgMap[image_chat_bg_telegram.id] = false
+        setChatBackgroundItemsEnabled(chatBackground)
+        image_view_setting_chat_save.setOnClickListener { onChatBackgroundSaveClick() }
+        image_chat_bg_none.setOnClickListener { setChatBackgroundItemsEnabled(SettingManager.KEY_NONE) }
+        image_chat_bg_whats_app.setOnClickListener { setChatBackgroundItemsEnabled(SettingManager.KEY_WHATS_APP) }
+        image_chat_bg_telegram.setOnClickListener { setChatBackgroundItemsEnabled(SettingManager.KEY_TELEGRAM) }
+    }
 
-        image_chat_bg_none.setOnClickListener {
-            val isChecked = chatBgMap[image_chat_bg_none.id]
-            if (isChecked != null && !isChecked) {
-                it.background = resources.getDrawable(R.drawable.chat_background_on_select, activity?.theme)
-                chatBgMap[image_chat_bg_none.id] = true
-            } else {
-                it.setBackgroundResource(0)
-                chatBgMap[image_chat_bg_none.id] = false
+    private fun setChatBackgroundItemsEnabled(selectedItem: String) {
+        when (selectedItem) {
+            SettingManager.KEY_NONE -> {
+                setChatItemsBackground(image_chat_bg_none)
+                chatBackground = SettingManager.KEY_NONE
+            }
+            SettingManager.KEY_WHATS_APP-> {
+                setChatItemsBackground(image_chat_bg_whats_app)
+                chatBackground = SettingManager.KEY_WHATS_APP
+            }
+            SettingManager.KEY_TELEGRAM -> {
+                setChatItemsBackground(image_chat_bg_telegram)
+                chatBackground = SettingManager.KEY_TELEGRAM
             }
         }
-        image_chat_bg_whats_app.setOnClickListener { it.background = resources.getDrawable(R.drawable.chat_background_on_select, activity?.theme) }
-        image_chat_bg_telegram.setOnClickListener { it.background = resources.getDrawable(R.drawable.chat_background_on_select, activity?.theme) }
+    }
+
+    private fun setChatItemsBackground(activeItem: View) {
+        chatBgItem.forEach {
+            when (it) {
+                activeItem -> { it.background = resources.getDrawable(R.drawable.chat_background_on_select, activity?.theme) }
+                else -> {
+                    it.setBackgroundResource(0)
+                }
+            }
+        }
+    }
+
+    fun onChatBackgroundSaveClick() {
+        try {
+            settingManager.saveData(SettingManager.KEY_CHAT_BG, chatBackground)
+            Toast.makeText(context, resources.getString(R.string.add_contact_save), Toast.LENGTH_LONG).show()
+        } catch (e: Exception) {
+            Toast.makeText(context, resources.getString(R.string.db_error), Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun setLanguageRadioGroupEnabled(isEnabled: Boolean) {

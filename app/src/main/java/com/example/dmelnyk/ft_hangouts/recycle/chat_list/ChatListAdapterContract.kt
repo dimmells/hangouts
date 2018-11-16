@@ -1,5 +1,6 @@
 package com.example.dmelnyk.ft_hangouts.recycle.chat_list
 
+import android.app.Activity
 import com.example.dmelnyk.ft_hangouts.recycle.ChatListItemViewHolder
 import java.util.*
 
@@ -20,6 +21,7 @@ interface ChatListAdapterContract {
         fun setTime(time: Date?)
         fun onClick(position: Int)
         fun hideBottomLine(hide: Boolean)
+        fun setPhoto(photoSrc: String, activity: Activity)
     }
 
 }

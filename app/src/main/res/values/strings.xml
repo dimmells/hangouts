@@ -16,4 +16,25 @@
     <string name="contact_info_alert_yeah">Yeah</string>
     <string name="contact_info_alert_dialog_no">No, please</string>
     <string name="db_error">Error</string>
+    <string name="alert_choose_ph_src">Choose photo source</string>
+    <string name="alert_src_camera">Camera</string>
+    <string name="alert_src_gallery">Gallery</string>
+    <string name="db_failed">Failed</string>
+    <string name="db_success">Success</string>
+    <string name="setting_title">Setting</string>
+    <string name="setting_language">Language</string>
+    <string name="setting_default_language">Default language</string>
+    <string name="setting_english">English</string>
+    <string name="setting_uk">Українська</string>
+    <string name="setting_francais">Francais</string>
+    <string name="setting_theme">Theme</string>
+    <string name="setting_hive">Hive</string>
+    <string name="setting_union">Union</string>
+    <string name="setting_alliance">Alliance</string>
+    <string name="setting_empire">Empire</string>
+    <string name="setting_chat_background">Chat background</string>
+    <string name="create_contact_check_and_try">Check data and try later</string>
+    <string name="create_contact_select_pic">Select Picture</string>
+    <string name="edit_contact_button_edit">Edit</string>
+    <string name="edit_contact_toolbar_title">Edit contact</string>
 </resources>

@@ -19,19 +19,35 @@ class SettingManager(private val context: Context) {
         const val KEY_ALLIANCE = "alliance"
         const val KEY_EMPIRE = "empire"
 
+        const val KEY_CHAT_BG = "chatBg"
+        const val KEY_NONE = "none"
+        const val KEY_WHATS_APP = "whatsApp"
+        const val KEY_TELEGRAM = "telegram"
+
+        const val KEY_BG_DATE = "bgDate"
+
         val KEY_DEFAULT = Locale.getDefault().language.toString().toLowerCase()
     }
 
-    private val sharedPreferences = context.getSharedPreferences(SettingManager.KEY_SETTING, Context.MODE_PRIVATE)
+    private val sharedPreferences = context.getSharedPreferences(KEY_SETTING, Context.MODE_PRIVATE)
 
-    fun getLanguage(): String = sharedPreferences.getString(SettingManager.KEY_LANG, SettingManager.KEY_DEFAULT)
+    fun getLanguage(): String = sharedPreferences.getString(KEY_LANG, KEY_DEFAULT)
 
-    fun getTheme(): String = sharedPreferences.getString(SettingManager.KEY_THEME, SettingManager.KEY_HIVE)
+    fun getTheme(): String = sharedPreferences.getString(KEY_THEME, KEY_HIVE)
+
+    fun getChatBackground(): String = sharedPreferences.getString(KEY_CHAT_BG, KEY_WHATS_APP)
 
     fun saveData(key: String, data: String) {
-        val sharedPreferences = context.getSharedPreferences(SettingManager.KEY_SETTING, Context.MODE_PRIVATE)
-        val editor = sharedPreferences?.edit()
-        editor?.putString(key, data)
-        editor?.apply()
+        val editor = sharedPreferences.edit()
+        editor.putString(key, data)
+        editor.apply()
+    }
+
+    fun getTimeOnResume(): Long = sharedPreferences.getLong(KEY_BG_DATE, Date().time)
+
+    fun saveTimeOnPause(time: Long) {
+        val editor = sharedPreferences.edit()
+        editor.putLong(KEY_BG_DATE, time)
+        editor.apply()
     }
 }

@@ -1,9 +1,14 @@
 package com.example.dmelnyk.ft_hangouts.ui
 
+import android.Manifest
 import android.app.AlertDialog
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +16,7 @@ import android.widget.Toast
 import com.example.dmelnyk.ft_hangouts.R
 import com.example.dmelnyk.ft_hangouts.data.Contact
 import com.example.dmelnyk.ft_hangouts.data.DBHandler
+import com.example.dmelnyk.ft_hangouts.data.PhotoFormatter
 import kotlinx.android.synthetic.main.fragment_contact_info.*
 import kotlinx.android.synthetic.main.fragment_toolbar.view.*
 
@@ -29,6 +35,7 @@ class ContactInfoFragment: Fragment() {
     }
 
     private lateinit var contact: Contact
+    private val photoFormatter = PhotoFormatter()
     private var dbHandler: DBHandler? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,6 +74,7 @@ class ContactInfoFragment: Fragment() {
             text_view_view_contact_last_name.text = last_name
             text_view_view_contact_number.text = phone_number
             text_view_view_contact_email.text = email
+            image_view_view_contact_photo.setImageBitmap(activity?.let { photoFormatter.getPhoto(photoSrc, it) })
         }
     }
 

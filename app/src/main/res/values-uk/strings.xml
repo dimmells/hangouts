@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alert_choose_ph_src">Виберіть джерело фото</string>
+    <string name="alert_src_camera">Камера</string>
+    <string name="alert_src_gallery">Галерея</string>
+    <string name="db_failed">Вас спіткала невдача</string>
+    <string name="db_success">Успішно</string>
+    <string name="setting_title">Налаштування</string>
+    <string name="setting_language">Мова</string>
+    <string name="setting_default_language">Мова за замовчуванням</string>
+</resources>
