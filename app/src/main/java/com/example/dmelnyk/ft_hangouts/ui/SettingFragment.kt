@@ -97,10 +97,10 @@ class SettingFragment: Fragment() {
         }
     }
 
-    fun onChatBackgroundSaveClick() {
+    private fun onChatBackgroundSaveClick() {
         try {
             settingManager.saveData(SettingManager.KEY_CHAT_BG, chatBackground)
-            Toast.makeText(context, resources.getString(R.string.add_contact_save), Toast.LENGTH_LONG).show()
+            Toast.makeText(context, resources.getString(R.string.data_saved), Toast.LENGTH_LONG).show()
         } catch (e: Exception) {
             Toast.makeText(context, resources.getString(R.string.db_error), Toast.LENGTH_LONG).show()
         }
@@ -139,7 +139,7 @@ class SettingFragment: Fragment() {
             }
             settingManager.saveData(SettingManager.KEY_LANG, language)
             Utils.setLanguage(resources, language)
-            Toast.makeText(context, resources.getString(R.string.add_contact_save), Toast.LENGTH_LONG).show()
+            Toast.makeText(context, resources.getString(R.string.data_saved), Toast.LENGTH_LONG).show()
         } catch (e: Exception) {
             Toast.makeText(context, resources.getString(R.string.db_error), Toast.LENGTH_LONG).show()
         }
@@ -156,7 +156,7 @@ class SettingFragment: Fragment() {
             }
             settingManager.saveData(SettingManager.KEY_THEME, theme)
             activity?.let { Utils.changeToTheme(it, theme) }
-            Toast.makeText(context, resources.getString(R.string.add_contact_save), Toast.LENGTH_LONG).show()
+            Toast.makeText(context, resources.getString(R.string.data_saved), Toast.LENGTH_LONG).show()
         } catch (e: Exception) {
             Toast.makeText(context, resources.getString(R.string.db_error), Toast.LENGTH_LONG).show()
         }

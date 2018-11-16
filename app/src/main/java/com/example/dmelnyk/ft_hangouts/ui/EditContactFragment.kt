@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -75,6 +76,8 @@ class EditContactFragment: Fragment() {
         image_view_add_contact_photo.setImageBitmap(activity?.let { photoFormatter.getPhoto(contact.photoSrc, it) })
         image_view_add_contact_photo.setOnClickListener { loadPhoto() }
         button_add_contact_save.text = getString(R.string.edit_contact_button_edit)
+        text_view_add_contact_first_name.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
+        text_view_add_contact_last_name.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

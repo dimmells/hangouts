@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="action_settings">Налаштування</string>
+    <string name="main_hint_press_to_create_contact">Натисни + для створення контакту</string>
+    <string name="add_contact_save">Зберегти</string>
+    <string name="add_contact_first_name">Ім\'я</string>
+    <string name="add_contact_last_name">Прізвище</string>
+    <string name="add_contact_phone_number">Номер телефону</string>
+    <string name="add_contact_email">Email</string>
+    <string name="add_contact_title">Створити контакт</string>
+    <string name="add_contact_no_number_alert">Введіть номер телефону</string>
+    <string name="chat_hint_message">Повідомлення…</string>
+    <string name="chat_unexpected_error">Невідома помилка</string>
+    <string name="chat_list_item_no_message">Немає повідомлень</string>
+    <string name="contact_info_alert_dialog_message">Ви дійсно бажаєте видалити даний контакт</string>
+    <string name="contact_info_alert_yeah">Звичайно</string>
+    <string name="contact_info_alert_dialog_no">Ні, будь ласка</string>
+    <string name="db_error">Помилка</string>
+    <string name="edit_contact_button_edit">Редагувати</string>
+    <string name="edit_contact_toolbar_title">Редагувати контакт</string>
     <string name="alert_choose_ph_src">Виберіть джерело фото</string>
     <string name="alert_src_camera">Камера</string>
     <string name="alert_src_gallery">Галерея</string>
@@ -8,4 +26,9 @@
     <string name="setting_title">Налаштування</string>
     <string name="setting_language">Мова</string>
     <string name="setting_default_language">Мова за замовчуванням</string>
+    <string name="setting_theme">Тема</string>
+    <string name="setting_chat_background">Фон чату</string>
+    <string name="create_contact_check_and_try">Перевірте дані та спробуйте пізніше</string>
+    <string name="create_contact_select_pic">Виберіть зображення</string>
+    <string name="data_saved">Збережено</string>
 </resources>

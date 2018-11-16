@@ -1,4 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ft_hangouts</string>
+    <string name="action_settings">Réglages</string>
+    <string name="main_hint_press_to_create_contact">Appuyez sur + pour créer un contact</string>
+    <string name="add_contact_save">Sauvegarder</string>
+    <string name="add_contact_first_name">Prénom</string>
+    <string name="add_contact_last_name">Nom de famille</string>
+    <string name="add_contact_phone_number">Numéro de téléphone</string>
+    <string name="add_contact_email">Email</string>
+    <string name="add_contact_title">Ajouter le contact</string>
+    <string name="add_contact_no_number_alert">Entrez le numéro de téléphone</string>
+    <string name="chat_hint_message">Message…</string>
+    <string name="chat_unexpected_error">Erreur inattendue</string>
+    <string name="chat_list_item_no_message">Pas encore de messages</string>
+    <string name="contact_info_alert_dialog_message">Voulez-vous vraiment supprimer ce contact</string>
+    <string name="contact_info_alert_yeah">Ouais</string>
+    <string name="contact_info_alert_dialog_no">Non je t\'en prie</string>
+    <string name="db_error">Erreur</string>
+    <string name="edit_contact_button_edit">Modifier</string>
+    <string name="edit_contact_toolbar_title">Modifier le contact</string>
+    <string name="alert_choose_ph_src">Sélectionner une source de photo</string>
+    <string name="alert_src_camera">Caméra</string>
+    <string name="alert_src_gallery">Galerie</string>
+    <string name="db_failed">Échoué</string>
+    <string name="db_success">Succès</string>
+    <string name="setting_title">Réglage</string>
+    <string name="setting_language">La langue</string>
+    <string name="setting_default_language">Langage par défaut</string>
+    <string name="setting_theme">Thème</string>
+    <string name="setting_chat_background">Fond de chat</string>
+    <string name="create_contact_check_and_try">Vérifier les données et essayer plus tard</string>
+    <string name="create_contact_select_pic">Sélectionnez une image</string>
+    <string name="data_saved">Enregistré</string>
 </resources>

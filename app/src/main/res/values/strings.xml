@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ft_hangouts</string>
+    <string name="app_name" translatable="false">ft_hangouts</string>
     <string name="action_settings">Settings</string>
     <string name="main_hint_press_to_create_contact">Press + to create contact</string>
     <string name="add_contact_save">Save</string>
@@ -24,17 +24,18 @@
     <string name="setting_title">Setting</string>
     <string name="setting_language">Language</string>
     <string name="setting_default_language">Default language</string>
-    <string name="setting_english">English</string>
-    <string name="setting_uk">Українська</string>
-    <string name="setting_francais">Francais</string>
+    <string name="setting_english" translatable="false">English</string>
+    <string name="setting_uk" translatable="false">Українська</string>
+    <string name="setting_francais" translatable="false">Francais</string>
     <string name="setting_theme">Theme</string>
-    <string name="setting_hive">Hive</string>
-    <string name="setting_union">Union</string>
-    <string name="setting_alliance">Alliance</string>
-    <string name="setting_empire">Empire</string>
+    <string name="setting_hive" translatable="false">Hive</string>
+    <string name="setting_union" translatable="false">Union</string>
+    <string name="setting_alliance" translatable="false">Alliance</string>
+    <string name="setting_empire" translatable="false">Empire</string>
     <string name="setting_chat_background">Chat background</string>
     <string name="create_contact_check_and_try">Check data and try later</string>
     <string name="create_contact_select_pic">Select Picture</string>
     <string name="edit_contact_button_edit">Edit</string>
     <string name="edit_contact_toolbar_title">Edit contact</string>
+    <string name="data_saved">Saved</string>
 </resources>

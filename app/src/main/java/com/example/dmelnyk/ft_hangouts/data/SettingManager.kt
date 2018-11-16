@@ -12,6 +12,7 @@ class SettingManager(private val context: Context) {
         const val KEY_EN = "en"
         const val KEY_UK = "uk"
         const val KEY_FR = "fr"
+        val KEY_DEFAULT = Locale.getDefault().language.toString().toLowerCase()
 
         const val KEY_THEME = "theme"
         const val KEY_HIVE = "hive"
@@ -26,7 +27,7 @@ class SettingManager(private val context: Context) {
 
         const val KEY_BG_DATE = "bgDate"
 
-        val KEY_DEFAULT = Locale.getDefault().language.toString().toLowerCase()
+
     }
 
     private val sharedPreferences = context.getSharedPreferences(KEY_SETTING, Context.MODE_PRIVATE)

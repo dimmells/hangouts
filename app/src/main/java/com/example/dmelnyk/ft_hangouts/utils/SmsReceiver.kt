@@ -9,10 +9,10 @@ class SmsReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         try {
-            val extras = intent?.extras
+            val extras = intent.extras
 
             if (extras != null) {
-                val sms = extras.get("pdus") as Array<Any>
+                val sms = extras.get("pdus") as Array<*>
 
                 for (i in sms.indices) {
 //                    val format = extras.getString("format")
